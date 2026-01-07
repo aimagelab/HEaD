@@ -1,355 +1,400 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="description"
-          content="Hallucination Early Detection">
-    <meta name="keywords" content="HEaD, Image Generation, Image Evaluation">
+        content="HEaD+ - Hallucination Early Detection in Diffusion Models. Detect and prevent object hallucinations during image generation, saving up to 32% generation time.">
+    <meta name="keywords"
+        content="HEaD, HEaD+, Hallucination Detection, Diffusion Models, Stable Diffusion, Text-to-Image, Image Generation, AI, Machine Learning, Computer Vision, IJCV">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hallucination Early Detection
-    </title>
+    <meta name="author" content="Federico Betti, Lorenzo Baraldi">
 
-    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+    <!-- Open Graph / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="HEaD+ - Hallucination Early Detection in Diffusion Models">
+    <meta property="og:description"
+        content="Detect and prevent hallucinations in text-to-image generation. Up to 8% more complete generations and 32% faster.">
+    <meta property="og:image" content="images/first_picture.png">
 
+    <title>HEaD+ | Hallucination Early Detection in Diffusion Models</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
     <link rel="stylesheet" href="./static/css/bulma.min.css">
-    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
     <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
     <link rel="stylesheet" href="./static/css/index.css">
     <link rel="icon" href="images/unimore_logo.png">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script defer src="./static/js/fontawesome.all.min.js"></script>
-    <script src="./static/js/bulma-carousel.min.js"></script>
-    <script src="./static/js/bulma-slider.min.js"></script>
-    <script src="./static/js/index.js"></script>
 </head>
 
+<body>
 
-<section class="hero">
-    <div class="hero-body">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column has-text-centered">
+
+                        <!-- Publication Badge -->
+                        <div class="publication-badge animate-fade-in">
+                            <i class="ai ai-springer"></i>
+                            <span>Published at IJCV 2026</span>
+                        </div>
+
+                        <!-- Title -->
+                        <h1 class="title is-1 publication-title animate-fade-in animate-delay-1">
+                            Hallucination Early Detection<br>in Diffusion Models
+                        </h1>
+
+                        <!-- Authors -->
+                        <div class="is-size-5 publication-authors animate-fade-in animate-delay-2">
+                            <span class="author-block">
+                                <a href="https://scholar.google.com/citations?user=Ms5ctkUAAAAJ&hl=en"
+                                    target="_blank">Federico Betti</a><sup>1</sup>*,
+                            </span>
+                            <span class="author-block">
+                                <a href="https://scholar.google.com/citations?user=nw7mrA0AAAAJ&hl=en"
+                                    target="_blank">Lorenzo Baraldi</a><sup>2,3</sup>*,
+                            </span>
+                            <span class="author-block">
+                                <a href="https://scholar.google.com/citations?user=V4RuMvsAAAAJ&hl=en"
+                                    target="_blank">Lorenzo Baraldi</a><sup>2</sup>,
+                            </span>
+                            <span class="author-block">
+                                <a href="https://scholar.google.com/citations?user=OM3sZEoAAAAJ&hl=en"
+                                    target="_blank">Rita Cucchiara</a><sup>2</sup>,
+                            </span>
+                            <span class="author-block">
+                                <a href="https://scholar.google.com/citations?user=stFCYOAAAAAJ&hl=en"
+                                    target="_blank">Nicu Sebe</a><sup>1</sup>
+                            </span>
+                        </div>
+
+                        <div class="author-affiliations animate-fade-in animate-delay-2">
+                            <span><sup>1</sup>University of Trento</span> &nbsp;&middot;&nbsp;
+                            <span><sup>2</sup>University of Modena and Reggio Emilia</span> &nbsp;&middot;&nbsp;
+                            <span><sup>3</sup>University of Pisa</span>
+                        </div>
+
+                        <div class="equal-contrib animate-fade-in animate-delay-2">
+                            * Equal contribution
+                        </div>
+
+                        <!-- Links -->
+                        <div class="column has-text-centered animate-fade-in animate-delay-3" style="margin-top: 2rem;">
+                            <span class="link-block">
+                                <a href="https://link.springer.com/article/10.1007/s11263-025-02622-0"
+                                    class="external-link is-dark is-rounded" target="_blank">
+                                    <span class="icon"><i class="ai ai-springer"></i></span>
+                                    <span>Paper</span>
+                                </a>
+                            </span>
+                            <span class="link-block">
+                                <a href="#dataset" class="external-link is-primary is-rounded">
+                                    <span class="icon"><i class="fas fa-database"></i></span>
+                                    <span>Dataset</span>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TL;DR Section -->
+    <section class="tldr-section">
+        <div class="container is-max-desktop">
+            <div class="tldr-box">
+                <p class="tldr-text">
+                    <strong>HEaD+</strong> predicts whether diffusion models will hallucinate (miss objects)
+                    <strong>mid-generation</strong>.
+                    If a hallucination is detected, it restarts with a new seed, saving up to <strong>32% generation
+                        time</strong>
+                    while achieving <strong>6-8% more complete images</strong> with all requested objects.
+                    It is model-agnostic and works with any diffusion model without retraining: both UNet-based (Stable
+                    Diffusion, TokenCompose) and DiT-based (PixArt-α).
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Results -->
+    <section class="section">
+        <div class="container is-max-desktop">
+            <h2 class="title is-3 has-text-centered section-title" style="margin-bottom: 2rem;">Key Results</h2>
+
+            <div class="results-cards">
+                <div class="result-card">
+                    <div class="result-number">+8%</div>
+                    <div class="result-label">Increase in complete generations with 4 objects using SD1.4</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-number">32%</div>
+                    <div class="result-label">Time saved when aiming for a complete image generation</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-number">45K</div>
+                    <div class="result-label">Images in InsideGen dataset with cross-attention maps & PFIs</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-number">0</div>
+                    <div class="result-label">Retraining needed: works out-of-the-box with any diffusion model</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Problem -->
+    <section class="section is-dark">
         <div class="container is-max-desktop">
             <div class="columns is-centered">
-                <div class="column has-text-centered">
-                    <h1 class="title is-1 publication-title">Hallucination Early Detection in Diffusion Models</h1>
-                    <div class="is-size-5 publication-authors">
-                        <!--                        <h1 class="title is-4" style="color: #5c5c5c;">ECCV 2024</h1>-->
-
-                        <span class="author-block">
-              <a href="https://...">Federico Betti</a>*<sup>1</sup>,</span>
-                        <span class="author-block">
-              <a href="https://...">Lorenzo Baraldi</a>*<sup>2,3</sup>,</span>
-                        <span class="author-block">
-              <a href="https://...">Lorenzo Baraldi</a><sup>2</sup>,</span>
-                        </span>
-                        <br>
-                        <span class="author-block">
-              <a href="https://...">Rita Cucchiara</a><sup>2</sup>,</span>
-                        </span>
-                        <span class="author-block">
-              <a href="https://...">Nicu Sebe</a><sup>1</sup>,</span>
-                        </span>
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3 section-title">The Problem</h2>
+                    <div class="content" style="margin-top: 2rem;">
+                        <p>
+                            Diffusion models often fail when generating images with <strong>multiple objects</strong>.
+                            Our analysis shows that with just 4 objects in the prompt, Stable Diffusion 1.4 produces
+                            a <em>complete</em> image (showing all objects) only <strong>27%</strong> of the time.
+                        </p>
+                        <p>
+                            The good news? Different random seeds can lead to vastly different results.
+                            Testing 11 seeds, at least one produces a complete image in <strong>80%</strong> of prompts.
+                            The challenge is finding that good seed without wasting time on failed generations.
+                        </p>
                     </div>
 
-                    <div class="is-size-5 publication-authors">
-                        <span class="author-block"><sup>1</sup>University of Trento,</span>
-                        <span class="author-block"><sup>2</sup>University of Modena and Reggio Emilia,</span>
-                        <span class="author-block"><sup>3</sup>University of Pisa</span>
+                    <div class="method-image">
+                        <img src="images/first_picture.png" alt="HEaD+ motivation and pipeline overview">
+                        <p class="image-caption">
+                            <strong>Left:</strong> Success rate drops dramatically as object count increases.
+                            <strong>Right:</strong> HEaD+ detects hallucinations mid-generation and restarts with a
+                            better seed.
+                        </p>
                     </div>
-                    <div class="is-size-5 publication-authors">
-                        <span class="author-block">* Equal contribution</span>
-                    </div>
-
-                    <div class="column has-text-centered">
-<!--            <span class="link-block">-->
-                        <!--              <a href="https://arxiv.org/pdf/2407.20337" class="external-link button is-normal is-rounded is-dark">-->
-                        <!--                <span class="icon">-->
-                        <!--                  <i class="ai ai-arxiv"></i>-->
-                        <!--                </span>-->
-                        <!--                <span>arXiv</span>-->
-                        <!--              </a>-->
-                        <!--            </span>-->
-
-
-                        <!--                        <span class="link-block">-->
-                        <!--                <a href="https://huggingface.co/datasets/elsaEU/ELSA_D3"-->
-                        <!--                   class="external-link button is-normal is-rounded is-dark">-->
-                        <!--                  <span class="icon">-->
-                        <!--                      <svg class="svg-inline&#45;&#45;fa fa-face-smiling-hands" aria-hidden="true" focusable="false"-->
-                        <!--                           data-prefix="fas" data-icon="face-smiling-hands" role="img"-->
-                        <!--                           xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" data-fa-i2svg=""><path-->
-                        <!--                              fill="currentColor"-->
-                        <!--                              d="M411.1 495.3C382.8 506.1 352.1 512 319.1 512C287.9 512 257.2 506.1 228.9 495.3C245.9 473.7 255.1 446.4 255.1 416.8V386C274.1 394.4 295.4 400 319.1 400C344.6 400 365.9 394.4 384 386V416.8C384 446.4 394.1 473.7 411.1 495.3V495.3zM575.7 242.6C558.8 236.8 539.5 240.6 526.1 254.1L478.1 301.1C469.6 287.4 453.9 278.4 436 278.4C407.3 278.4 384 301.7 384 330.4V349.6C367.2 360.3 345.9 368 319.1 368C294.1 368 272.8 360.3 255.1 349.6V330.4C255.1 301.7 232.7 278.4 203.1 278.4C186.1 278.4 170.4 287.4 161 301.1L113.9 254.1C100.5 240.6 81.15 236.8 64.34 242.6C71.31 107.5 183.1 0 319.1 0C456.9 0 568.7 107.5 575.7 242.6V242.6zM281.6 228.8C283.7 231.6 287.3 232.7 290.5 231.6C293.8 230.5 295.1 227.4 295.1 224C295.1 206.1 289.3 188.4 279.4 175.2C269.6 162.2 255.5 152 239.1 152C224.5 152 210.4 162.2 200.6 175.2C190.7 188.4 183.1 206.1 183.1 224C183.1 227.4 186.2 230.5 189.5 231.6C192.7 232.7 196.3 231.6 198.4 228.8L198.4 228.8L198.6 228.5C198.8 228.3 198.1 228 199.3 227.6C199.1 226.8 200.9 225.7 202.1 224.3C204.6 221.4 208.1 217.7 212.3 213.1C221.1 206.2 231.2 200 239.1 200C248.8 200 258.9 206.2 267.7 213.1C271.9 217.7 275.4 221.4 277.9 224.3C279.1 225.7 280 226.8 280.7 227.6C281 228 281.2 228.3 281.4 228.5L281.6 228.8L281.6 228.8zM450.5 231.6C453.8 230.5 456 227.4 456 224C456 206.1 449.3 188.4 439.4 175.2C429.6 162.2 415.5 152 400 152C384.5 152 370.4 162.2 360.6 175.2C350.7 188.4 344 206.1 344 224C344 227.4 346.2 230.5 349.5 231.6C352.7 232.7 356.3 231.6 358.4 228.8L358.4 228.8L358.6 228.5C358.8 228.3 358.1 228 359.3 227.6C359.1 226.8 360.9 225.7 362.1 224.3C364.6 221.4 368.1 217.7 372.3 213.1C381.1 206.2 391.2 200 400 200C408.8 200 418.9 206.2 427.7 213.1C431.9 217.7 435.4 221.4 437.9 224.3C439.1 225.7 440 226.8 440.7 227.6C441 228 441.2 228.3 441.4 228.5L441.6 228.8L441.6 228.8C443.7 231.6 447.3 232.7 450.5 231.6V231.6zM68.69 299.3C62.44 293.1 62.44 282.9 68.69 276.7C74.93 270.4 85.06 270.4 91.31 276.7L170.3 355.7C175.4 360.8 184 357.2 184 350.1V330.4C184 319.4 192.1 310.4 204 310.4C215 310.4 224 319.4 224 330.4V416.8C224 469.4 181.4 512 128.8 512C103.6 512 79.34 501.1 61.49 484.1L4.686 427.3C-1.562 421.1-1.562 410.9 4.686 404.7C10.93 398.4 21.07 398.4 27.31 404.7L46.63 424C49.22 426.6 53.41 426.6 55.1 424C58.59 421.4 58.59 417.2 55.1 414.6L4.686 363.3C-1.562 357.1-1.562 346.9 4.686 340.7C10.93 334.4 21.07 334.4 27.31 340.7L78.63 392C81.22 394.6 85.41 394.6 87.1 392C90.59 389.4 90.59 385.2 87.1 382.6L20.69 315.3C14.44 309.1 14.44 298.9 20.69 292.7C26.93 286.4 37.06 286.4 43.31 292.7L110.6 360C113.2 362.6 117.4 362.6 119.1 360C122.6 357.4 122.6 353.2 119.1 350.6L68.69 299.3zM520 350.6C517.4 353.2 517.4 357.4 520 360C522.6 362.6 526.8 362.6 529.4 360L596.7 292.7C602.9 286.4 613.1 286.4 619.3 292.7C625.6 298.9 625.6 309.1 619.3 315.3L552 382.6C549.4 385.2 549.4 389.4 552 392C554.6 394.6 558.8 394.6 561.4 392L612.7 340.7C618.9 334.4 629.1 334.4 635.3 340.7C641.6 346.9 641.6 357.1 635.3 363.3L584 414.6C581.4 417.2 581.4 421.4 584 424C586.6 426.6 590.8 426.6 593.4 424L612.7 404.7C618.9 398.4 629.1 398.4 635.3 404.7C641.6 410.9 641.6 421.1 635.3 427.3L578.5 484.1C560.7 501.1 536.4 512 511.2 512C458.6 512 416 469.4 416 416.8V330.4C416 319.4 424.1 310.4 436 310.4C447 310.4 456 319.4 456 330.4V350.1C456 357.2 464.6 360.8 469.7 355.7L548.7 276.7C554.9 270.4 565.1 270.4 571.3 276.7C577.6 282.9 577.6 293.1 571.3 299.3L520 350.6z"></path></svg>-->
-                        <!--                  </span>-->
-                        <!--                  <span>Dataset</span>-->
-                        <!--                  </a>-->
-                        <!--              </span>-->
-
-                    </div>
-
                 </div>
             </div>
         </div>
-    </div>
-    </div>
-</section>
-<!--<section class="hero teaser">-->
-<!--    <div class="container is-max-desktop">-->
-<!--        <div class="hero-body">-->
-<!--            &lt;!&ndash;<img src="./static/images/huggingface_d3_gif.gif">&ndash;&gt;-->
-<!--            <h2 class="subtitle has-text-centered">-->
-<!--                <p>-->
-<!--                    We introduce <strong>CoDE</strong> (Contrastive Deepfake Embeddings), a novel approach that utilize-->
-<!--                    contrastive learning and global-local similarities-->
-<!--                    to create an effective embedding space specifically for deepfake detection.-->
-<!--                    CoDE achieves state-of-the-art accuracy and generalization across various image generators,-->
-<!--                    including some that were not seen during training.-->
-<!--                </p>-->
-<!--                <p>-->
-<!--                    Additionally, we release the <span class="dnerf">D<sup>3</sup></span> dataset used for the train,-->
-<!--                    which consists of 9.2 million images generated using different diffusion models.-->
-<!--                </p>-->
-<!--                &lt;!&ndash;  is a multimodal dataset that contains 9.2M generated images, generated with four SoTA diffusion model generators.-->
-<!--                Each image is generated starting from a <a href="https://laion.ai/blog/laion-400-open-dataset/"> LAION-400M </a> caption, thus referring to a realistic textual description.   &ndash;&gt;-->
-<!--            </h2>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</section>-->
+    </section>
 
+    <!-- Method -->
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3 section-title">How HEaD+ Works</h2>
+                    <div class="content" style="margin-top: 2rem;">
+                        <p>
+                            HEaD+ operates at a <strong>critical timestep</strong> during the diffusion process,
+                            combining three signals to predict whether each requested object will appear in the final
+                            image:
+                        </p>
+                        <ul style="color: var(--text-secondary);">
+                            <li><strong>Predicted Final Image (PFI)</strong>: a forecast of the final image at an
+                                intermediate step</li>
+                            <li><strong>Cross-Attention Maps</strong>: show where the model is "looking" for each
+                                object</li>
+                            <li><strong>Textual Embeddings</strong>: CLIP features of the requested objects</li>
+                        </ul>
+                        <p>
+                            A lightweight <strong>Transformer Decoder</strong> processes these inputs to predict object
+                            presence.
+                            If any object is predicted missing, generation restarts with a new seed, catching failures
+                            early and saving up to 37% of generation time.
+                        </p>
+                    </div>
 
-<!--<section class="hero is-light is-small">-->
-<!--    <div class="hero-body">-->
-<!--        <div class="container">-->
-<!--            <div id="results-carousel" class="carousel results-carousel">-->
-<!--                <div class="item item-steve">-->
-<!--                    <img poster="" src="https://aimagelab.ing.unimore.it/imagelab/uploadedImages/001088.png" id="steve"-->
-<!--                         autoplay controls muted loop playsinline height="100%">-->
-<!--                </div>-->
-<!--                <div class="item item-chair-tp">-->
-<!--                    <img poster="" src="https://aimagelab.ing.unimore.it/imagelab/uploadedImages/001090.png" id="steve"-->
-<!--                         autoplay controls muted loop playsinline height="100%">-->
-<!--                </div>-->
-<!--                <div class="item item-shiba">-->
-<!--                    <img poster="" src="https://aimagelab.ing.unimore.it/imagelab/uploadedImages/001091.png" id="steve"-->
-<!--                         autoplay controls muted loop playsinline height="100%">-->
-<!--                </div>-->
-<!--                <div class="item item-fullbody">-->
-<!--                    <img poster="" src="https://aimagelab.ing.unimore.it/imagelab/uploadedImages/001092.png" id="steve"-->
-<!--                         autoplay controls muted loop playsinline height="100%">-->
-<!--                </div>-->
-<!--                <div class="item item-blueshirt">-->
-<!--                    <img poster="" src="https://aimagelab.ing.unimore.it/imagelab/uploadedImages/001093.png" id="steve"-->
-<!--                         autoplay controls muted loop playsinline height="100%">-->
-<!--                </div>-->
-<!--                <div class="item item-mask">-->
-<!--                    <img poster="" src="https://aimagelab.ing.unimore.it/imagelab/uploadedImages/001094.png" id="steve"-->
-<!--                         autoplay controls muted loop playsinline height="100%">-->
-<!--                </div>-->
-<!--                <div class="item item-coffee">-->
-<!--                    <img poster="" src="https://aimagelab.ing.unimore.it/imagelab/uploadedImages/001095.png" id="steve"-->
-<!--                         autoplay controls muted loop playsinline height="100%">-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</section>-->
-
-<section class="section">
-    <div class="container is-max-desktop">
-        <div class="columns is-centered has-text-centered">
-            <div class="column is-four-fifths">
-                <h2 class="title is-3">Abstract</h2>
-                <div class="content has-text-justified">
-                    Text-to-Image generation has seen significant advancements in output realism with the advent of
-                    diffusion models.
-                    However, diffusion models encounter difficulties when tasked with generating multiple objects,
-                    frequently resulting in hallucinations where certain entities are omitted. While existing solutions
-                    typically focus on optimizing latent representations within diffusion models, the relevance of the
-                    initial generation seed is typically underestimated.
-                    While using various seeds in multiple iterations can improve results, this method also significantly
-                    increases time and energy costs.
-                    To address this challenge, we introduce HEaD+ (Hallucination Early Detection +), a novel approach
-                    designed to identify incorrect generations early in the diffusion process. The HEaD+ framework
-                    integrates cross-attention maps and textual information with a novel input, the Predicted Final
-                    Image. The objective is to assess whether to proceed with the current generation or restart it with
-                    a different seed, thereby exploring multiple-generation seeds while conserving time. HEaD+ is
-                    trained on the newly created InsideGen dataset of 45,000 generated images, each containing
-                    prompts with up to seven objects. Our findings demonstrate a 6-8% increase in the likelihood of
-                    achieving a complete generation (i.e. an image accurately representing all specified subjects) with
-                    four objects when applying HEaD+ alongside existing models. Additionally, HEaD+ reduces generation
-                    times by up to 32% when aiming for a complete image, enhancing the efficiency of generating
-                    complete and accurate object representations relative to leading models.
+                    <div class="method-image">
+                        <img src="images/main_image_rebuttal.png" alt="HEaD+ architecture">
+                        <p class="image-caption">
+                            <strong>Left:</strong> HEaD+ pipeline integrating with the diffusion process.
+                            <strong>Right:</strong> Hallucination Prediction network architecture combining PFI,
+                            attention maps, and text features.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!--<section class="hero is-light is-small">-->
-<!--    <div class="columns is-centered has-text-centered">-->
-<!--        <div class="column is-four-fifths">-->
-<!--            <h2 class="title is-3">Model Architecture</h2>-->
-<!--            &lt;!&ndash; <h2 class="title is-5">Safe-CLIP Removing NSFW Concepts</h2> &ndash;&gt;-->
-<!--            <div class="content has-text-centered">-->
-<!--                <img src="images/deepfake_model.jpg" class="center" width="760">-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</section>-->
+    <!-- PFI Visualization -->
+    <section class="section is-dark">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3 section-title">Predicted Final Image (PFI)</h2>
+                    <div class="content" style="margin-top: 2rem;">
+                        <p>
+                            The Predicted Final Image is a key innovation of HEaD+. By projecting the latent
+                            representation
+                            at an intermediate timestep to the final step, we can glimpse what the final image will look
+                            like
+                            <strong>before generation completes</strong>. Already at timestep 16 (out of 50), object
+                            presence
+                            is clearly visible.
+                        </p>
+                    </div>
 
-<!--<section class="section">-->
-<!--    <div class="container is-max-desktop">-->
-<!--        <div class="columns is-centered has-text-centered">-->
-<!--            <div class="column is-four-fifths">-->
-<!--                <div class="content has-text-justified">-->
-<!--                    <p>-->
-<!--                        The CoDE model architecture is built on a ViT-Tiny, which balances high accuracy with a low-->
-<!--                        number of parameters.-->
-<!--                        This makes it particularly suitable for production environments due to its high throughput of-->
-<!--                        processed images per second.-->
-<!--                        To enhance robustness against post-processing operations often applied to images in real-world-->
-<!--                        scenarios,-->
-<!--                        various transformations are applied to images during training.-->
-<!--                        These transformations are sampled in both type and intensity.-->
-<!--                    </p>-->
-<!--                    <p>-->
-<!--                        Additionally, both local and global crops of images are considered to capture contextual-->
-<!--                        features and fine details,-->
-<!--                        which are useful for identifying traces left by different generative models.-->
-<!--                        Overall, during training CoDE employs a combination of loss functions, leveraging global and-->
-<!--                        multi-scale features-->
-<!--                        to optimally position the features in the embedding space for deepfake detection.-->
-<!--                    </p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</section>-->
-
-
-<!--/ Animation. -->
-<!--<div class="columns is-centered">
-  <div class="column is-full-width">
-    <h2 class="title is-3">Animation</h2>
-    <div class="slider-container-lollo">
-      <div class="slider-lollo">
-       Images will be added dynamically using JavaScript
-      </div>
-    </div>
-  </div>
-</div>
--->
-
-
-<!-- Concurrent Work. -->
-<!--<div class="columns is-centered">
-  <div class="column is-full-width">
-    <h2 class="title is-3">Related Links</h2>
-
-    <div class="content has-text-justified">
-      <p>
-        There's a lot of excellent work that was introduced around the same time as ours.
-      </p>
-      <p>
-        <a href="https://arxiv.org/abs/2104.09125">Progressive Encoding for Neural Optimization</a> introduces an idea similar to our windowed position encoding for coarse-to-fine optimization.
-      </p>
-      <p>
-        <a href="https://www.albertpumarola.com/research/D-NeRF/index.html">D-NeRF</a> and <a href="https://gvv.mpi-inf.mpg.de/projects/nonrigid_nerf/">NR-NeRF</a>
-        both use deformation fields to model non-rigid scenes.
-      </p>
-      <p>
-        Some works model videos with a NeRF by directly modulating the density, such as <a href="https://video-nerf.github.io/">Video-NeRF</a>, <a href="https://www.cs.cornell.edu/~zl548/NSFF/">NSFF</a>, and <a href="https://neural-3d-video.github.io/">DyNeRF</a>
-      </p>
-      <p>
-        There are probably many more by the time you are reading this. Check out <a href="https://dellaert.github.io/NeRF/">Frank Dellart's survey on recent NeRF papers</a>, and <a href="https://github.com/yenchenlin/awesome-NeRF">Yen-Chen Lin's curated list of NeRF papers</a>.
-      </p>
-    </div>
-  </div>
-</div>
--->
-
-
-<section class="section">
-    <div class="container is-max-desktop">
-        <div class="columns is-centered has-text-centered">
-            <div class="column is-four-fifths">
-                <h2 class="title is-3">InsideGen Dataset</h2>
-                <div class="content has-text-justified">
-                    <p>
-                        The InsideGen dataset includes Cross-Attention Maps and Predicted Final Images for 45,000 images
-                        across different time steps. Time steps selected for the dataset are 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20, 25, 40
-                    </p>
-                    <p>
-
-                        Download the data for different versions of Stable Diffusion using the links below:
-                    </p>
-                    <ul>
-                        <li>Stable Diffusion 1.4: <a
-                                href="https://ailb-web.ing.unimore.it/publicfiles/InsideGen/InsideGenSD1_4.tar.gz">Download
-                            here</a></li>
-                        <li>Stable Diffusion 2.1: <a
-                                href="https://ailb-web.ing.unimore.it/publicfiles/InsideGen/InsideGenSD2_1.tar.gz">Download
-                            here</a></li>
-                    </ul>
+                    <div class="method-image">
+                        <img src="images/qualitativi_PFI_small_2.png" alt="PFI at different timesteps">
+                        <p class="image-caption">
+                            Predicted Final Images at different diffusion timesteps. By step 16, the final composition
+                            is already clear.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!--<section class="section">-->
-<!--    <div class="container is-max-desktop">-->
-<!--        <div class="columns is-centered has-text-centered">-->
-<!--            <div class="column is-four-fifths">-->
-<!--                <h2 class="title is-3">Citation</h2>-->
-<!--                <div class="content has-text-justified">-->
-<!--            <pre><code>@inproceedings{baraldi2024contrastive,-->
-<!--              title={{Contrasting Deepfakes Diffusion via Contrastive Learning and Global-Local Similarities}},-->
-<!--              author={Baraldi, Lorenzo and Cocchi, Federico and Cornia, Marcella and Baraldi, Lorenzo and Nicolosi, Alessandro and Cucchiara, Rita},-->
-<!--              booktitle={Proceedings of the European Conference on Computer Vision},-->
-<!--              year={2024}-->
-<!--            }</code></pre>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</section>-->
+    <!-- Qualitative Results -->
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3 section-title">Qualitative Comparison</h2>
+                    <div class="content" style="margin-top: 2rem;">
+                        <p>
+                            HEaD+ dramatically improves multi-object generation across different base models.
+                            When the base model hallucinates (misses objects), HEaD+ detects this and finds a seed
+                            that produces a complete image.
+                        </p>
+                    </div>
 
-<footer class="footer">
-    <div class="container">
-        <!-- <div class="content has-text-centered footer-icons">
-          <a class=""
-             href="https://international.unimore.it/">
-            <img  src="https://aimagelab.ing.unimore.it/imagelab/uploadedImages/001097.png">
-          </a>
-          <a class="" href="https://www.leonardo.com/it/innovation-technology/leonardo-labs" class="external-link" disabled>
-            <img  src="https://aimagelab.ing.unimore.it/imagelab/uploadedImages/001098.png">
-          </a>
-          <a class="" href="https://www.elsa-ai.eu/" class="external-link" disabled>
-            <img  src="https://aimagelab.ing.unimore.it/imagelab/uploadedImages/001099.png">
-          </a>
-        </div> -->
+                    <div class="gallery-container">
+                        <img src="images/qualitativi_head_rebuttal.png" alt="Qualitative comparison"
+                            class="gallery-image">
+                        <p class="image-caption">
+                            Comparison of SD2, TokenCompose, and PixArt-α with and without HEaD+.
+                            Bold text indicates requested objects. HEaD+ helps recover missing objects like the moon,
+                            car, person, and skier.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Dataset -->
+    <section class="section is-dark" id="dataset">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3 section-title">InsideGen Dataset</h2>
+                    <div class="content" style="margin-top: 2rem;">
+                        <p>
+                            We release <strong>InsideGen</strong>, a dataset of 45,000 generated images with
+                            cross-attention maps
+                            and Predicted Final Images at multiple timesteps. Each image includes hallucination labels
+                            for prompts with 2-7 objects.
+                        </p>
+                        <p>
+                            Timesteps captured: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20, 25, 40
+                        </p>
+                    </div>
 
-        <div class="columns is-centered">
-            <div class="column is-8">
-                <div class="content">
+                    <div class="download-cards">
+                        <div class="download-card">
+                            <h4>Stable Diffusion 1.4</h4>
+                            <p>Cross-attention maps & PFIs for SD 1.4 generations</p>
+                            <a href="https://ailb-web.ing.unimore.it/publicfiles/InsideGen/InsideGenSD1_4.tar.gz"
+                                class="download-btn">
+                                <i class="fas fa-download"></i> Download
+                            </a>
+                        </div>
+                        <div class="download-card">
+                            <h4>Stable Diffusion 2.1</h4>
+                            <p>Cross-attention maps & PFIs for SD 2.1 generations</p>
+                            <a href="https://ailb-web.ing.unimore.it/publicfiles/InsideGen/InsideGenSD2_1.tar.gz"
+                                class="download-btn">
+                                <i class="fas fa-download"></i> Download
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Citation -->
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3 section-title">Citation</h2>
+                    <div class="content" style="margin-top: 2rem;">
+                        <p>If you find this work useful, please cite:</p>
+                    </div>
+
+                    <div class="citation-box">
+                        <button class="copy-btn" onclick="copyBibtex()">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                        <pre><code>@article{betti2026head,
+  title={Hallucination Early Detection in Diffusion Models},
+  author={Betti, Federico and Baraldi, Lorenzo and Baraldi, Lorenzo 
+          and Cucchiara, Rita and Sebe, Nicu},
+  journal={International Journal of Computer Vision},
+  volume={134},
+  pages={35},
+  year={2026},
+  publisher={Springer}
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-8 has-text-centered">
                     <p>
-                        This website is licensed under a <a rel="license"
-                                                            href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-                        Commons Attribution-ShareAlike 4.0 International License</a>.
+                        This website is licensed under
+                        <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>.
                     </p>
-                    <p>
-                        Website powered by AImageLab | HTML template from <a
-                            href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>
+                    <p style="margin-top: 0.5rem;">
+                        Template from <a href="https://github.com/nerfies/nerfies.github.io" target="_blank">Nerfies</a>
+                        · Powered by <a href="https://aimagelab.ing.unimore.it/" target="_blank">AImageLab</a>
                     </p>
                 </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
+
+    <script>
+        function copyBibtex() {
+            const bibtex = `@article{betti2026head,
+  title={Hallucination Early Detection in Diffusion Models},
+  author={Betti, Federico and Baraldi, Lorenzo and Baraldi, Lorenzo and Cucchiara, Rita and Sebe, Nicu},
+  journal={International Journal of Computer Vision},
+  volume={134},
+  pages={35},
+  year={2026},
+  publisher={Springer}
+}`;
+            navigator.clipboard.writeText(bibtex).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                }, 2000);
+            });
+        }
+    </script>
 
 </body>
+
 </html>
